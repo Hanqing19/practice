@@ -1,0 +1,26 @@
+class Solution:
+    def backspaceCompare(self, s: str, t: str) -> bool:
+        def convert_backspace(string: str) -> str:
+            size = len(string)
+            fast = size - 1
+            slow = size - 1
+            b_num = 0
+            lst = [i for i in string]
+            new_str = ''
+            while fast >= 0:
+                if lst[fast] != '#':
+                    if b_num == 0:
+                        lst[slow] = lst[fast]
+                        slow -= 1
+                    else:
+                        b_num -= 1
+                else:
+                    b_num += 1
+                fast -= 1
+            for i in range(slow + 1, size):
+                new_str += lst[i]
+            return new_str
+        convert_s = convert_backspace(s)
+        convert_t = convert_backspace(t)
+        return convert_s == convert_t
+        
