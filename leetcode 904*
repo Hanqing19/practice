@@ -1,0 +1,23 @@
+class Solution:
+    def totalFruit(self, fruits: List[int]) -> int:
+        size = len(fruits)
+
+        if size == 0: return 0
+        
+        left = 0
+        right = 0
+        maxFruits = 1
+        hashmap = {fruits[0]:0}
+
+        while right < size:
+            hashmap[fruits[right]] = right
+
+            if len(hashmap) > 2:
+                min_key = min(hashmap, key=hashmap.get)
+                left = hashmap[min_key] + 1
+                del hashmap[min_key]
+            
+            maxFruits = max(maxFruits, right - left + 1)
+            right += 1
+        return maxFruits
+            
