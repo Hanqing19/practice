@@ -1,0 +1,32 @@
+class Solution:
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        startx, starty = 0, 0
+        row = len(matrix)
+        col = len(matrix[0])
+        result = []
+        if row == 1:
+            return [i for i in matrix[0]]
+        if col == 1:
+            return [matrix[j][0] for j in range(row)]
+        if row > col:
+            loop = col // 2
+        else:
+            loop = row // 2
+        for offset in range(1, loop + 1):
+            for i in range(starty, col - offset):
+                result.append(matrix[startx][i])
+            for i in range(startx, row - offset):
+                result.append(matrix[i][col - offset])
+            for i in range(col - offset, starty, -1):
+                result.append(matrix[row - offset][i])
+            for i in range(row - offset, startx, -1):
+                result.append(matrix[i][starty])
+            startx += 1
+            starty += 1
+        if min(row, col) % 2 == 1:
+            if row <= col:
+                for i in range(starty, col - loop):
+                    result.append(matrix[startx][i])
+            else:
+                for i in range(startx, row - loop):
+                    result.append(matrix[i][starty])
